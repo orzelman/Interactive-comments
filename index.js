@@ -1,2 +1,5 @@
 fetch('data.json', { method: "POST" })
-    .then(res => console.log(res))
+    .then(res => res.json())
+    .then(data => {
+        console.log(data)
+    })
