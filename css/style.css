@@ -25,7 +25,7 @@ body {
 
 .section {
     margin: 0 auto;
-    max-width: 650px;
+    max-width: 700px;
 }
 
 .comment-window {
@@ -90,6 +90,7 @@ body {
 .comment-title img {
     border-radius: 50%;
     width: 30px;
+    margin-right: 5px;
 }
 
 .comment-title-right {
@@ -97,21 +98,89 @@ body {
     align-items: center;
 }
 
-.user.name {
+.user-name {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 0 5px;
     font-weight: 700;
 }
 
 .date-update {
-    padding: 0 5px;
     color: var(--grayish-blue);
-    font-weight: 400;
+    padding-left: 5px;
 }
 
-.reply-container {
-    font-weight: 500;
-    color: var(--moderate-blue);
+.you {
+    padding: 2px 5px;
+    margin: 0 5px;
+    background-color: var(--moderate-blue);
+    color: var(--white);
+
 }
+
+.icon {
+    padding: 0 10px;
+    color: var(--moderate-blue);
+    cursor: pointer;
+}
+
+.icon:hover {
+    font-weight: 700;
+}
+
+.icon-delete {
+    color: var(--soft-red);
+}
+
+svg {
+    margin: 0 5px;
+}
+
+.new-reply {
+    display: flex;
+    gap: 20px;
+    padding: 0;
+    width: 100%;
+    height: 0;
+    border-radius: 6px;
+    margin-bottom: 5px;
+    background-color: var(--white);
+    overflow: hidden;
+    transition: all .3s;
+}
+
+.new-reply img {
+    width: 50px;
+    height: 50px;
+}
+
+.new-reply-content {
+    width: 100%;
+    height: 100%;
+    border: 1px solid var(--moderate-blue);
+    border-radius: 6px;
+    padding: 5px;
+}
+
+textarea {
+    width: 100%;
+    height: 100%;
+    border: none;
+    resize: none;
+}
+
+textarea:focus-visible {
+    outline: none;
+}
+
+.big-button {
+    padding: 8px 16px;
+    background-color: var(--moderate-blue);
+    color: var(--white);
+}
+
+.reply-container {}
 
 .comment-content {
     text-align: left;
@@ -136,7 +205,7 @@ body {
     width: 20px;
     height: auto;
     margin-left: 20px;
-    border-right: 3px solid var(--pale-red);
+    border-right: 3px solid var(--light-grayish-blue);
 }
 
 a {
