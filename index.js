@@ -5,8 +5,32 @@ const REPLY_SVG = `<svg width="14" height="13" xmlns="http://www.w3.org/2000/svg
 </svg>`;
 const EDIT_SVG = `<svg width="14" height="14" xmlns="http://www.w3.org/2000/svg"><path d="M13.479 2.872 11.08.474a1.75 1.75 0 0 0-2.327-.06L.879 8.287a1.75 1.75 0 0 0-.5 1.06l-.375 3.648a.875.875 0 0 0 .875.954h.078l3.65-.333c.399-.04.773-.216 1.058-.499l7.875-7.875a1.68 1.68 0 0 0-.061-2.371Zm-2.975 2.923L8.159 3.449 9.865 1.7l2.389 2.39-1.75 1.706Z" fill="#5357B6"/></svg>`;
 const DELETE_SVG = `<svg width="12" height="14" xmlns="http://www.w3.org/2000/svg"><path d="M1.167 12.448c0 .854.7 1.552 1.555 1.552h6.222c.856 0 1.556-.698 1.556-1.552V3.5H1.167v8.948Zm10.5-11.281H8.75L7.773 0h-3.88l-.976 1.167H0v1.166h11.667V1.167Z" fill="#ED6368"/></svg>`;
-
 const container = document.getElementById("container");
+
+function hideNewReply() {
+    const newReplyWindows = document.querySelectorAll('.new-reply');
+    newReplyWindows.forEach(window => {
+        window.style.height = 0;
+        window.style.padding = 0;
+    });
+};
+function showNewReplyWindow(event) {
+    const newReplyParent = event.target.closest('.comment-body').parentElement;
+    const newReply = newReplyParent.querySelector('.new-reply');
+    newReply.style.height = 100 + 'px';
+    newReply.style.padding = `10px 20px`;
+};
+function sendNewReply() {
+
+    fetch('./data.json', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+        .then(data => data.json())
+        .then(data => console.log('success'));
+}
 
 function createCommentContent(comment, currentUser) {
     let icons = '';
@@ -111,10 +135,12 @@ function creatNewReply(comment, currentUser) {
     newReplyContent.setAttribute('class', 'new-reply-content');
     newReplyContent.innerHTML = `
     <textarea></textarea>`;
+    const bigReply = document.createElement('div');
+    bigReply.setAttribute('class', 'big-button reply-button');
+    bigReply.textContent = 'REPLY';
     newReply.appendChild(imgUser);
     newReply.appendChild(newReplyContent);
-
-
+    newReply.appendChild(bigReply);
     return newReply;
 }
 
@@ -141,23 +167,23 @@ fetch('data.json', { method: "POST" })
                 })
                 container.appendChild(section);
             }
-
-        }
+        };
         showComments(data.comments, data.currentUser.username);
+
 
         const iconReply = document.querySelectorAll('.icon-reply');
         iconReply.forEach(item => {
             item.addEventListener('click', (event) => {
-                const newReplyWindows = document.querySelectorAll('.new-reply');
-                newReplyWindows.forEach(window => {
-                    window.style.height = 0;
-                    window.style.padding = 0;
-                })
-                const newReplyParent = event.target.closest('.comment-body').parentElement;
-                const newReply = newReplyParent.querySelector('.new-reply');
-                newReply.style.height = 100 + 'px';
-                newReply.style.padding = `10px 20px`;
+                hideNewReply();
+                showNewReplyWindow(event);
+
             })
+        });
+        const bigButton = document.querySelectorAll('.big-button.reply-button');
+        console.log(bigButton);
+        bigButton.forEach(item => {
+            item.addEventListener('click', event => console.log(event.target.closest('new-reply-content')));
         })
+
 
     })
